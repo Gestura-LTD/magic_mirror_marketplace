@@ -1,7 +1,54 @@
 {
  "blocked": [],
- "generated": "2026-11-12T01:55:23Z",
- "packages": [],
+ "generated": "2026-11-22T11:07:43Z",
+ "packages": [
+  {
+   "id": "io.github.outsidedev.openstringecho",
+   "manifest": {
+    "ageRange": [
+     5,
+     99
+    ],
+    "artLicense": "CC0-1.0",
+    "author": "Outside Dev",
+    "description": "The mirror names an open string (G, D, A or E). Play it; the ring turns green when you are in tune.",
+    "entry": "main.qml",
+    "homepage": "https://github.com/outsidedev/open-string-echo",
+    "howTo": "Play the open string the mirror shows and hold it in tune for one second.",
+    "id": "io.github.outsidedev.openstringecho",
+    "instruments": [
+     "violin"
+    ],
+    "kind": "game",
+    "levels": 0,
+    "license": "MIT",
+    "name": "Open String Echo",
+    "outputs": [
+     "target.pitch"
+    ],
+    "permissions": [],
+    "schema": 1,
+    "scoreIds": [
+     "openstrings"
+    ],
+    "sdk": 1,
+    "streams": [
+     "sound.pitch",
+     "sound.signal"
+    ],
+    "version": "1.0.0"
+   },
+   "sha256": "2e02acb1884262b535c70855e2d44c656f485561a9c428af97c11e29003dfca8",
+   "sig": "6ywXanlrtYG55fK8FEYU+zX1UxHQOBsyseg0AaH03tim0HbSfvMoa1Pt8GvZXVNAsZhjuzfviW9WyY7wkWHPCQ==",
+   "size": 4021,
+   "source": "https://raw.githubusercontent.com/Gestura-LTD/magic_mirror_marketplace/main/packages/io.github.outsidedev.openstringecho/io.github.outsidedev.openstringecho-1.0.0.zip",
+   "thumb": {
+    "sha256": "a5f1ffa240a8b012945b46b88e55cb49bb94509cf5515f1bd5758f4b76aa1898",
+    "url": "https://raw.githubusercontent.com/Gestura-LTD/magic_mirror_marketplace/main/packages/io.github.outsidedev.openstringecho/thumb.png"
+   },
+   "version": "1.0.0"
+  }
+ ],
  "schema": 1,
- "serial": 1
+ "serial": 2
 }
