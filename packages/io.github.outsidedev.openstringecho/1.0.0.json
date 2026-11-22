@@ -1,0 +1,40 @@
+{
+  "manifest": {
+    "schema": 1,
+    "id": "io.github.outsidedev.openstringecho",
+    "version": "1.0.0",
+    "sdk": 1,
+    "kind": "game",
+    "name": "Open String Echo",
+    "author": "Outside Dev",
+    "description": "The mirror names an open string (G, D, A or E). Play it; the ring turns green when you are in tune.",
+    "homepage": "https://github.com/outsidedev/open-string-echo",
+    "license": "MIT",
+    "artLicense": "CC0-1.0",
+    "entry": "main.qml",
+    "howTo": "Play the open string the mirror shows and hold it in tune for one second.",
+    "instruments": [
+      "violin"
+    ],
+    "streams": [
+      "sound.pitch",
+      "sound.signal"
+    ],
+    "outputs": [
+      "target.pitch"
+    ],
+    "permissions": [],
+    "scoreIds": [
+      "openstrings"
+    ],
+    "levels": 0,
+    "ageRange": [
+      5,
+      99
+    ]
+  },
+  "source": "https://raw.githubusercontent.com/Gestura-LTD/magic_mirror_marketplace/main/packages/io.github.outsidedev.openstringecho/io.github.outsidedev.openstringecho-1.0.0.zip",
+  "sha256": "2e02acb1884262b535c70855e2d44c656f485561a9c428af97c11e29003dfca8",
+  "thumb": "thumb.png",
+  "notes": "Test package (R2b): a pretend third-party game built from the public docs, to test the Marketplace end to end."
+}
