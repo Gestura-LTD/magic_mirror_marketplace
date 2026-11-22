@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:magicmirror-musiclearningcompanion:marketplace:index:1",
+  "title": "MagicMirror_MusicLearningCompanion Marketplace index, schema 1",
+  "description": "index.json at the top of this repository, built and signed by tools/market_tool.py build-index. The Ed25519 signature over its exact bytes is in index.json.sig ({alg, key, sig}). Mirrors verify both offline with keys/*.pub, refuse a serial lower than one they have seen, and check each package's own signature.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "serial", "generated", "packages", "blocked"],
+  "properties": {
+    "schema": {"const": 1},
+    "serial": {"type": "integer", "minimum": 0, "description": "Goes up by one at every rebuild. A mirror refuses a list older than one it has seen."},
+    "generated": {"type": "string", "description": "UTC time of the build, ISO 8601."},
+    "packages": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "version", "manifest", "source", "sha256", "size", "sig"],
+        "properties": {
+          "id": {"type": "string"},
+          "version": {"type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$"},
+          "manifest": {"$ref": "manifest.schema.json", "description": "The package's manifest.json, exactly as in the zip."},
+          "source": {"type": "string", "pattern": "^https://", "description": "The zip (a GitHub release asset of the author's repository)."},
+          "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$", "description": "sha256 of the zip's bytes."},
+          "size": {"type": "integer", "minimum": 1, "description": "The zip's size in bytes."},
+          "sig": {"type": "string", "description": "Ed25519 signature (base64) over \"magicmirror-package-v1\\n<id>\\n<version>\\n<sha256>\\n\"."},
+          "thumb": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["url", "sha256"],
+            "properties": {
+              "url": {"type": "string", "pattern": "^https://"},
+              "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+            },
+            "description": "The tile picture, kept in this repository beside the entry (reviewed with it)."
+          }
+        }
+      }
+    },
+    "blocked": {
+      "type": "array",
+      "description": "Take-down: mirrors hide these games and refuse to start an installed copy.",
+      "items": {
+        "type": "object",
+        "required": ["id"],
+        "properties": {"id": {"type": "string"}, "why": {"type": "string"}}
+      }
+    }
+  }
+}

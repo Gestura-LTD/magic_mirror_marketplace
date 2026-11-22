@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:magicmirror-musiclearningcompanion:marketplace:entry:1",
+  "title": "A submitted game: packages/<id>/<version>.json",
+  "description": "One file per game version, added by a pull request. The CI (tools/market_tool.py ci) downloads `source`, compares `sha256`, unzips it safely and runs tools/check.py; `manifest` must equal the zip's manifest.json.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["manifest", "source", "sha256"],
+  "properties": {
+    "manifest": {"$ref": "manifest.schema.json"},
+    "source": {"type": "string", "pattern": "^https://", "description": "https://github.com/<you>/<repo>/releases/download/v<version>/<id>.zip"},
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "thumb": {"type": "string", "pattern": "^[A-Za-z0-9_\\-]+\\.png$", "description": "Optional tile picture beside this file, at most 512 kB (512 x 288 PNG suggested)."},
+    "notes": {"type": "string", "description": "What changed in this version (for the reviewers)."}
+  }
+}

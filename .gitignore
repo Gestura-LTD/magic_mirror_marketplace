@@ -1,0 +1,5 @@
+# never a private key in this repository
+*.pem
+*.key
+__pycache__/
+*.py[cod]
