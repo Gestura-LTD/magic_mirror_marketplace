@@ -1,0 +1,18 @@
+{
+  "schema": 1,
+  "id": "com.example.mygame",
+  "version": "0.1.0",
+  "sdk": 1,
+  "kind": "game",
+  "name": "Hold it",
+  "author": "Your name",
+  "license": "MIT",
+  "artLicense": "CC-BY-4.0",
+  "entry": "main.qml",
+  "howTo": "Play any note and hold it in tune for two seconds.",
+  "instruments": ["any"],
+  "streams": ["sound.pitch", "sound.signal"],
+  "outputs": [],
+  "permissions": [],
+  "scoreIds": ["holdit"]
+}

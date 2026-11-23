@@ -1,36 +1,95 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "urn:magicmirror-musiclearningcompanion:marketplace:index:1",
-  "title": "MagicMirror_MusicLearningCompanion Marketplace index, schema 1",
-  "description": "index.json at the top of this repository, built and signed by tools/market_tool.py build-index. The Ed25519 signature over its exact bytes is in index.json.sig ({alg, key, sig}). Mirrors verify both offline with keys/*.pub, refuse a serial lower than one they have seen, and check each package's own signature.",
+  "$id": "urn:magicmirror-musiclearningcompanion:marketplace:index:2",
+  "title": "MagicMirror_MusicLearningCompanion Marketplace index, schema 2 (schema 1 still accepted)",
+  "description": "index.json at the top of this repository, built and signed by tools/market_tool.py build-index. The Ed25519 signature is in index.json.sig ({alg, ctx, key, sig}); for schema 2 it covers \"magicmirror-index-v2\\n\" followed by the exact bytes of index.json (schema 1: the bare bytes). Mirrors verify offline with the index key(s) named by the newest root.json (or keys/*.pub before the first root), refuse a serial lower than one they have seen, refuse installs from a list past `expires`, and check each package's own signature.",
   "type": "object",
   "additionalProperties": false,
-  "required": ["schema", "serial", "generated", "packages", "blocked"],
+  "required": [
+    "schema",
+    "serial",
+    "generated",
+    "packages",
+    "blocked"
+  ],
   "properties": {
-    "schema": {"const": 1},
-    "serial": {"type": "integer", "minimum": 0, "description": "Goes up by one at every rebuild. A mirror refuses a list older than one it has seen."},
-    "generated": {"type": "string", "description": "UTC time of the build, ISO 8601."},
+    "schema": {
+      "enum": [
+        1,
+        2
+      ],
+      "description": "2 = expires + root + domain-separated signature. 1 = the old form, accepted during the switch."
+    },
+    "serial": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Goes up by one at every rebuild. A mirror refuses a list older than one it has seen."
+    },
+    "generated": {
+      "type": "string",
+      "description": "UTC time of the build, like 2026-11-22T00:00:00Z."
+    },
     "packages": {
       "type": "array",
       "items": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["id", "version", "manifest", "source", "sha256", "size", "sig"],
+        "required": [
+          "id",
+          "version",
+          "manifest",
+          "source",
+          "sha256",
+          "size",
+          "sig"
+        ],
         "properties": {
-          "id": {"type": "string"},
-          "version": {"type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$"},
-          "manifest": {"$ref": "manifest.schema.json", "description": "The package's manifest.json, exactly as in the zip."},
-          "source": {"type": "string", "pattern": "^https://", "description": "The zip (a GitHub release asset of the author's repository)."},
-          "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$", "description": "sha256 of the zip's bytes."},
-          "size": {"type": "integer", "minimum": 1, "description": "The zip's size in bytes."},
-          "sig": {"type": "string", "description": "Ed25519 signature (base64) over \"magicmirror-package-v1\\n<id>\\n<version>\\n<sha256>\\n\"."},
+          "id": {
+            "type": "string"
+          },
+          "version": {
+            "type": "string",
+            "pattern": "^\\d+\\.\\d+\\.\\d+$"
+          },
+          "manifest": {
+            "$ref": "manifest.schema.json",
+            "description": "The package's manifest.json, exactly as in the zip."
+          },
+          "source": {
+            "type": "string",
+            "pattern": "^https://",
+            "description": "The zip (a GitHub release asset of the author's repository)."
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$",
+            "description": "sha256 of the zip's bytes."
+          },
+          "size": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "The zip's size in bytes."
+          },
+          "sig": {
+            "type": "string",
+            "description": "Ed25519 signature (base64) over \"magicmirror-package-v1\\n<id>\\n<version>\\n<sha256>\\n\"."
+          },
           "thumb": {
             "type": "object",
             "additionalProperties": false,
-            "required": ["url", "sha256"],
+            "required": [
+              "url",
+              "sha256"
+            ],
             "properties": {
-              "url": {"type": "string", "pattern": "^https://"},
-              "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+              "url": {
+                "type": "string",
+                "pattern": "^https://"
+              },
+              "sha256": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              }
             },
             "description": "The tile picture, kept in this repository beside the entry (reviewed with it)."
           }
@@ -39,12 +98,78 @@
     },
     "blocked": {
       "type": "array",
-      "description": "Take-down: mirrors hide these games and refuse to start an installed copy.",
+      "description": "Take-down: mirrors hide matching versions and refuse to start an installed copy. Every field an entry gives must match; minVersion blocks only versions below it; an entry needs at least one of id / sha256 / author (schema 1: id).",
       "items": {
         "type": "object",
-        "required": ["id"],
-        "properties": {"id": {"type": "string"}, "why": {"type": "string"}}
+        "additionalProperties": false,
+        "anyOf": [
+          {
+            "required": [
+              "id"
+            ]
+          },
+          {
+            "required": [
+              "sha256"
+            ]
+          },
+          {
+            "required": [
+              "author"
+            ]
+          }
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "version": {
+            "type": "string",
+            "pattern": "^\\d+\\.\\d+\\.\\d+$"
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "author": {
+            "type": "string"
+          },
+          "minVersion": {
+            "type": "string",
+            "pattern": "^\\d+\\.\\d+\\.\\d+$"
+          },
+          "why": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "expires": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d\\d-\\d\\dT\\d\\d:\\d\\d:\\d\\dZ$",
+      "description": "Schema 2 (required there): after this UTC time mirrors install nothing from this list (build-index --days, default 30). Stops a 'freeze' (an old list served for ever)."
+    },
+    "root": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Schema 2 (required there): the root/<N>.json version the list was signed under (0 = no root yet)."
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "schema": {
+            "const": 2
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "expires",
+          "root"
+        ]
       }
     }
-  }
+  ]
 }

@@ -24,8 +24,8 @@
     "license": {"enum": ["MIT", "Apache-2.0", "BSD-2-Clause", "BSD-3-Clause"], "description": "The code licence (SPDX id). MIT is recommended."},
     "artLicense": {"enum": ["CC-BY-4.0", "CC0-1.0"], "description": "The licence of pictures and sounds (SPDX id). CC BY 4.0 is recommended."},
     "entry": {"type": "string", "pattern": "^[A-Za-z0-9_\\-]+\\.qml$", "description": "The game's QML file, in the top folder."},
-    "thumb": {"type": "string", "pattern": "^[A-Za-z0-9_\\-]+\\.png$", "description": "Tile picture, 512 x 512 PNG."},
-    "cover": {"type": "string", "pattern": "^[A-Za-z0-9_\\-]+\\.png$", "description": "Portrait cover, 1080 x 1920 PNG."},
+    "thumb": {"type": "string", "pattern": "^[A-Za-z0-9_\\-]+\\.png$", "description": "Tile picture in the package, a PNG shown in a 16:9 tile on the Installed tab: 512 x 288 fits exactly."},
+    "cover": {"type": "string", "pattern": "^[A-Za-z0-9_\\-]+\\.png$", "description": "Portrait cover, 1080 x 1920 PNG. Reserved: checked, not shown yet."},
     "howTo": {"type": "string", "description": "One or two sentences: how to play."},
     "instruments": {
       "type": "array",
@@ -55,8 +55,8 @@
       "items": {"type": "string", "pattern": "^[a-z][a-z0-9_]{0,31}$"},
       "description": "The score names the game uses with mirror.score(). Kept as pkg:<id>:<scoreId>."
     },
-    "levels": {"type": "integer", "minimum": 0, "maximum": 20},
-    "ageRange": {"type": "array", "items": {"type": "integer"}, "minItems": 2, "maxItems": 2},
-    "techniques": {"type": "array", "items": {"type": "string"}, "description": "Technique ids from the mirror's etude taxonomy (e.g. rh.spiccato.controlled), so a mode can recommend the game."}
+    "levels": {"type": "integer", "minimum": 0, "maximum": 20, "description": "How many levels the game has (0 = none). Shown as Levels on the game's page."},
+    "ageRange": {"type": "array", "items": {"type": "integer"}, "minItems": 2, "maxItems": 2, "description": "[youngest, oldest] player age in years, e.g. [6, 12]. For reviewers and later filtering; not shown yet."},
+    "techniques": {"type": "array", "items": {"type": "string"}, "description": "Technique ids from the mirror's etude taxonomy (e.g. rh.spiccato.controlled), so a mode can recommend the game later. May be empty."}
   }
 }

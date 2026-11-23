@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:magicmirror-musiclearningcompanion:sdk:manifest:1",
+  "title": "MagicMirror_MusicLearningCompanion game package manifest, schema 1",
+  "description": "manifest.json at the top of every game package. check.py applies these rules and a few the schema cannot say (the folder is named after the id; sdk not newer than the mirror's).",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "id", "version", "sdk", "kind", "name", "author", "license", "artLicense", "entry", "streams", "scoreIds"],
+  "properties": {
+    "schema": {"const": 1, "description": "The manifest format version."},
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_]*(\\.[a-z0-9_]+){2,}$",
+      "description": "Reverse-DNS id, lower case, e.g. io.github.yourname.mygame. Also the package's folder name. Never change it: scores are kept under it."
+    },
+    "version": {"type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$", "description": "Semantic version x.y.z."},
+    "sdk": {"type": "integer", "minimum": 1, "description": "The lowest mirror SDK level the game needs. Today: 1."},
+    "kind": {"enum": ["game"], "description": "Only games for now."},
+    "name": {"type": "string", "minLength": 1, "maxLength": 60},
+    "author": {"type": "string", "minLength": 1, "maxLength": 60},
+    "description": {"type": "string"},
+    "homepage": {"type": "string", "pattern": "^https://"},
+    "sponsor": {"type": "string", "pattern": "^https://", "description": "GitHub Sponsors / Ko-fi / Open Collective page. Shown as credit; the mirror takes no money."},
+    "license": {"enum": ["MIT", "Apache-2.0", "BSD-2-Clause", "BSD-3-Clause"], "description": "The code licence (SPDX id). MIT is recommended."},
+    "artLicense": {"enum": ["CC-BY-4.0", "CC0-1.0"], "description": "The licence of pictures and sounds (SPDX id). CC BY 4.0 is recommended."},
+    "entry": {"type": "string", "pattern": "^[A-Za-z0-9_\\-]+\\.qml$", "description": "The game's QML file, in the top folder."},
+    "thumb": {"type": "string", "pattern": "^[A-Za-z0-9_\\-]+\\.png$", "description": "Tile picture in the package, a PNG shown in a 16:9 tile on the Installed tab: 512 x 288 fits exactly."},
+    "cover": {"type": "string", "pattern": "^[A-Za-z0-9_\\-]+\\.png$", "description": "Portrait cover, 1080 x 1920 PNG. Reserved: checked, not shown yet."},
+    "howTo": {"type": "string", "description": "One or two sentences: how to play."},
+    "instruments": {
+      "type": "array",
+      "items": {"enum": ["violin", "viola", "cello", "bass", "flute", "voice", "any"]}
+    },
+    "streams": {
+      "type": "array",
+      "minItems": 1,
+      "description": "What the game reads. The mirror gives the game ONLY these, as mirror.d. Sound and bow only: never the camera, the microphone or the pose.",
+      "items": {
+        "enum": [
+          "sound.pitch", "sound.tuning", "sound.signal", "sound.level", "sound.tone", "sound.rhythm", "sound.source",
+          "sound.source2", "sound.pulse", "sound.shape", "sound.tempo", "sound.goodness", "sound.quality", "sound.instrument",
+          "bow", "bow.stroke", "bow.level", "bow.lean", "bow.straight", "bow.mounted", "bow.t"
+        ]
+      }
+    },
+    "outputs": {
+      "type": "array",
+      "description": "What the game may ask the mirror to do, besides scoring.",
+      "items": {"enum": ["target.pitch", "target.noise"]}
+    },
+    "permissions": {"type": "array", "maxItems": 0, "description": "Always empty in sdk 1: no network, no files, no storage."},
+    "scoreIds": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"type": "string", "pattern": "^[a-z][a-z0-9_]{0,31}$"},
+      "description": "The score names the game uses with mirror.score(). Kept as pkg:<id>:<scoreId>."
+    },
+    "levels": {"type": "integer", "minimum": 0, "maximum": 20, "description": "How many levels the game has (0 = none). Shown as Levels on the game's page."},
+    "ageRange": {"type": "array", "items": {"type": "integer"}, "minItems": 2, "maxItems": 2, "description": "[youngest, oldest] player age in years, e.g. [6, 12]. For reviewers and later filtering; not shown yet."},
+    "techniques": {"type": "array", "items": {"type": "string"}, "description": "Technique ids from the mirror's etude taxonomy (e.g. rh.spiccato.controlled), so a mode can recommend the game later. May be empty."}
+  }
+}

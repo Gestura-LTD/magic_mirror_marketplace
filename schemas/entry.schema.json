@@ -8,9 +8,9 @@
   "required": ["manifest", "source", "sha256"],
   "properties": {
     "manifest": {"$ref": "manifest.schema.json"},
-    "source": {"type": "string", "pattern": "^https://", "description": "https://github.com/<you>/<repo>/releases/download/v<version>/<id>.zip"},
+    "source": {"type": "string", "pattern": "^https://", "description": "The zip's address, a GitHub release asset of your own repository: https://github.com/<you>/<repo>/releases/download/v<version>/<id>-<version>.zip (tools/market_tool.py make-zip names it)."},
     "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
-    "thumb": {"type": "string", "pattern": "^[A-Za-z0-9_\\-]+\\.png$", "description": "Optional tile picture beside this file, at most 512 kB (512 x 288 PNG suggested)."},
+    "thumb": {"type": "string", "pattern": "^[A-Za-z0-9_\\-]+\\.png$", "description": "Optional tile picture beside this file (the Available tab), a PNG of at most 512 kB shown in a 16:9 tile: 512 x 288 fits exactly."},
     "notes": {"type": "string", "description": "What changed in this version (for the reviewers)."}
   }
 }

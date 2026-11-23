@@ -1,0 +1,23 @@
+{
+  "schema": 1,
+  "id": "io.github.robertoalonsotrillo.glass",
+  "version": "1.0.0",
+  "sdk": 1,
+  "kind": "game",
+  "name": "Glass",
+  "author": "MagicMirror_MusicLearningCompanion contributors",
+  "homepage": "https://github.com/robertoalonsotrillo",
+  "license": "MIT",
+  "artLicense": "CC-BY-4.0",
+  "entry": "main.qml",
+  "thumb": "thumb.png",
+  "description": "The mirror's built-in Glass game, ported into the package format as the SDK's example.",
+  "howTo": "One long bow. Keep the line smoother than the target for as long as you can; the target rises after a good bow.",
+  "instruments": ["violin", "viola", "cello"],
+  "streams": ["sound.tone", "sound.signal", "sound.source", "sound.source2", "sound.level"],
+  "outputs": ["target.noise"],
+  "permissions": [],
+  "scoreIds": ["glass"],
+  "levels": 0,
+  "techniques": []
+}

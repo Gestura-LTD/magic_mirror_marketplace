@@ -1,0 +1,21 @@
+{
+  "product": "MagicMirror_MusicLearningCompanion",
+  "credit": "MagicMirror_MusicLearningCompanion contributors",
+  "githubOrg": "Gestura-LTD",
+  "sdkRepo": "magic_mirror_marketplace",
+  "indexRepo": "magic_mirror_marketplace",
+  "reviewers": "the group (the MagicMirror_MusicLearningCompanion contributors)",
+  "signingKey": "held by the group",
+  "note": "The one place for these names (Ryan, 10 Nov 2026). The SDK is published inside the Marketplace repository, in its sdk/ folder (Ryan, 23 Nov 2026): sdkRepo = indexRepo = magic_mirror_marketplace, sdkPath = sdk. ourPackages = the group's own packages: no coral community frame on the Marketplace (mockup A). mirror_qt/market.py reads this file (sdkUrl / indexUrl / the tiles' `ours`).",
+  "ourPackages": [
+    "io.github.robertoalonsotrillo.glass"
+  ],
+  "marketplace": {
+    "repo": "Gestura-LTD/magic_mirror_marketplace",
+    "page": "https://github.com/Gestura-LTD/magic_mirror_marketplace",
+    "index": "https://raw.githubusercontent.com/Gestura-LTD/magic_mirror_marketplace/main/index.json",
+    "note": "Phase 2 (B8, 12 Nov 2026): the public index repository (Ryan, 11 Nov). The mirror reads `index` (+ `.sig`) unless Settings › Developer sets another address.",
+    "sdk": "https://github.com/Gestura-LTD/magic_mirror_marketplace/tree/main/sdk"
+  },
+  "sdkPath": "sdk"
+}
